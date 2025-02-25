@@ -2,48 +2,48 @@ import UIKit
 
 /// Класс, описывающий бизнес-логику экрана отзывов.
 final class ReviewsViewModel: NSObject {
-
+    
     /// Замыкание, вызываемое при изменении `state`.
     var onStateChange: ((State) -> Void)?
-
+    
     private var state: State
     private let reviewsProvider: ReviewsProvider
     private let ratingRenderer: RatingRenderer
     private let decoder: JSONDecoder
-
+    
     init(
         state: State = State(),
         reviewsProvider: ReviewsProvider = ReviewsProvider(),
         ratingRenderer: RatingRenderer = RatingRenderer(),
-        decoder: JSONDecoder = JSONDecoder()
+        decoder: JSONDecoder = SnakeCaseJSONDecoder()
     ) {
         self.state = state
         self.reviewsProvider = reviewsProvider
         self.ratingRenderer = ratingRenderer
         self.decoder = decoder
     }
-
+    
 }
 
 // MARK: - Internal
 
 extension ReviewsViewModel {
-
+    
     typealias State = ReviewsViewModelState
-
+    
     /// Метод получения отзывов.
     func getReviews() {
         guard state.shouldLoad else { return }
         state.shouldLoad = false
         reviewsProvider.getReviews(offset: state.offset, completion: gotReviews)
     }
-
+    
 }
 
 // MARK: - Private
 
 private extension ReviewsViewModel {
-
+    
     /// Метод обработки получения отзывов.
     func gotReviews(_ result: ReviewsProvider.GetReviewsResult) {
         do {
@@ -57,7 +57,7 @@ private extension ReviewsViewModel {
         }
         onStateChange?(state)
     }
-
+    
     /// Метод, вызываемый при нажатии на кнопку "Показать полностью...".
     /// Снимает ограничение на количество строк текста отзыва (раскрывает текст).
     func showMoreReview(with id: UUID) {
@@ -69,53 +69,61 @@ private extension ReviewsViewModel {
         state.items[index] = item
         onStateChange?(state)
     }
-
+    
 }
 
 // MARK: - Items
 
 private extension ReviewsViewModel {
-
+    
     typealias ReviewItem = ReviewCellConfig
-
+    
     func makeReviewItem(_ review: Review) -> ReviewItem {
+        let fullName = review.fullName.attributed(font: .username)
         let reviewText = review.text.attributed(font: .text)
         let created = review.created.attributed(font: .created, color: .created)
+        let ratingImage = ratingRenderer.ratingImage(review.rating)
+        
         let item = ReviewItem(
+            fullName: fullName,
             reviewText: reviewText,
+            maxLines: 3,
             created: created,
-            onTapShowMore: showMoreReview
+            ratingImage: ratingImage,
+            onTapShowMore: { [weak self] id in
+                self?.showMoreReview(with: id)
+            }
         )
         return item
     }
-
+    
 }
 
 // MARK: - UITableViewDataSource
 
 extension ReviewsViewModel: UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         state.items.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let config = state.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: config.reuseId, for: indexPath)
         config.update(cell: cell)
         return cell
     }
-
+    
 }
 
 // MARK: - UITableViewDelegate
 
 extension ReviewsViewModel: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         state.items[indexPath.row].height(with: tableView.bounds.size)
     }
-
+    
     /// Метод дозапрашивает отзывы, если до конца списка отзывов осталось два с половиной экрана по высоте.
     func scrollViewWillEndDragging(
         _ scrollView: UIScrollView,
@@ -126,7 +134,7 @@ extension ReviewsViewModel: UITableViewDelegate {
             getReviews()
         }
     }
-
+    
     private func shouldLoadNextPage(
         scrollView: UIScrollView,
         targetOffsetY: CGFloat,
@@ -138,5 +146,5 @@ extension ReviewsViewModel: UITableViewDelegate {
         let remainingDistance = contentHeight - viewHeight - targetOffsetY
         return remainingDistance <= triggerDistance
     }
-
+    
 }
