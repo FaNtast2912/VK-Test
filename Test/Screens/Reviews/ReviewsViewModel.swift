@@ -87,6 +87,7 @@ private extension ReviewsViewModel {
         let reviewText = review.text.attributed(font: .text)
         let created = review.created.attributed(font: .created, color: .created)
         let ratingImage = ratingRenderer.ratingImage(review.rating)
+        let avatarImage = UIImage(named: "l5w5aIHioYc")
         
         let item = ReviewItem(
             fullName: fullName,
@@ -94,6 +95,7 @@ private extension ReviewsViewModel {
             maxLines: 3,
             created: created,
             ratingImage: ratingImage,
+            avatarImage: avatarImage,
             onTapShowMore: { [weak self] id in
                 self?.showMoreReview(with: id)
             }
