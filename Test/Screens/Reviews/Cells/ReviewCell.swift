@@ -19,7 +19,7 @@ struct ReviewCellConfig {
     /// Изображение рейтинга (звезды)
     let ratingImage: UIImage
     /// Замыкание, вызываемое при нажатии на кнопку "Показать полностью...".
-    let onTapShowMore: (UUID) -> Void
+    let onTapShowMore: ((UUID) -> Void)?
     
     /// Объект, хранящий посчитанные фреймы для ячейки отзыва.
     fileprivate let layout = ReviewCellLayout()
@@ -93,7 +93,7 @@ final class ReviewCell: UITableViewCell {
     
     @objc func showMoreTapped() {
         guard let config = config else { return }
-        config.onTapShowMore(config.id)
+        config.onTapShowMore?(config.id)
     }
     
 }

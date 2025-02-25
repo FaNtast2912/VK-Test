@@ -23,6 +23,10 @@ final class ReviewsViewModel: NSObject {
         self.decoder = decoder
     }
     
+    deinit {
+        onStateChange = nil
+    }
+    
 }
 
 // MARK: - Internal
