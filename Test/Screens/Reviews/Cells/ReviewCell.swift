@@ -101,6 +101,16 @@ final class ReviewCell: UITableViewCell {
         config.onTapShowMore?(config.id)
     }
     
+    // MARK: - Подготовка к переиспользованию ячейки
+     override func prepareForReuse() {
+        super.prepareForReuse()
+        config = nil
+        avatarImageView.image = nil
+        reviewerFullNameLabel.attributedText = nil
+        ratingImageView.image = nil
+        reviewTextLabel.attributedText = nil
+        createdLabel.attributedText = nil
+    }
 }
 
 // MARK: - Private
@@ -260,6 +270,7 @@ private final class ReviewCellLayout {
         
         return createdLabelFrame.maxY + insets.bottom
     }
+    
 }
 
 
