@@ -28,6 +28,20 @@ struct ReviewCellConfig {
     
 }
 
+///  Конфигурация для ячейки-счетчика
+struct CounterCellConfig: TableCellConfig {
+    static let reuseId = String(describing: CounterCellConfig.self)
+    let count: Int
+    
+    func update(cell: UITableViewCell) {
+        cell.textLabel?.text = count.formattedReviewsString()
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+    }
+    
+    func height(with size: CGSize) -> CGFloat { 44 }
+}
+
 // MARK: - TableCellConfig
 
 extension ReviewCellConfig: TableCellConfig {

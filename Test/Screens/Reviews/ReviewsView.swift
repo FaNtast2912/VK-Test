@@ -33,6 +33,7 @@ private extension ReviewsView {
         addSubview(tableView)
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: CounterCellConfig.reuseId)
         tableView.register(ReviewCell.self, forCellReuseIdentifier: ReviewCellConfig.reuseId)
     }
 

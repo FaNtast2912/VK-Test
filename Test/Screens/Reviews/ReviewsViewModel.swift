@@ -61,8 +61,12 @@ private extension ReviewsViewModel {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
             state.items += reviews.items.map(makeReviewItem)
+            state.totalCount = state.items.count
             state.offset += state.limit
             state.shouldLoad = state.offset < reviews.count
+            if !state.shouldLoad {
+                state.items.append(CounterCellConfig(count: state.totalCount))
+            }
         } catch {
             state.shouldLoad = true
         }
@@ -117,7 +121,8 @@ private extension ReviewsViewModel {
 extension ReviewsViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        state.items.count
+        print(state.items.count)
+        return state.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
