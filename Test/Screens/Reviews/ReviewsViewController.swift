@@ -3,6 +3,7 @@ import UIKit
 final class ReviewsViewController: UIViewController {
     
     private lazy var reviewsView = makeReviewsView()
+    private lazy var loadingIndicator = LoadingIndicatorView()
     private let viewModel: ReviewsViewModel
     
     init(viewModel: ReviewsViewModel) {
@@ -12,12 +13,6 @@ final class ReviewsViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    deinit {
-        viewModel.onStateChange = nil
-        reviewsView.tableView.delegate = nil
-        reviewsView.tableView.dataSource = nil
     }
     
     override func loadView() {
@@ -30,7 +25,6 @@ final class ReviewsViewController: UIViewController {
         setupViewModel()
         viewModel.getReviews()
     }
-    
 }
 
 // MARK: - Private
@@ -45,9 +39,9 @@ private extension ReviewsViewController {
     }
     
     func setupViewModel() {
-        viewModel.onStateChange = { [weak self, weak reviewsView] _ in
-            guard let reviewsView = reviewsView else { return }
-            reviewsView.tableView.reloadData()
+        viewModel.onStateChange = { [weak self] state in
+            guard let self else { return }
+            self.reviewsView.tableView.reloadData()
         }
     }
     

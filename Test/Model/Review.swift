@@ -15,5 +15,7 @@ struct Review: Decodable {
     var fullName: String {
         return "\(firstName) \(lastName)"
     }
+    /// Аватар пользователя
+    let avatar: String
     
 }

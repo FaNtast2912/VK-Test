@@ -23,10 +23,6 @@ final class ReviewsViewModel: NSObject {
         self.decoder = decoder
     }
     
-    deinit {
-        onStateChange = nil
-    }
-    
 }
 
 // MARK: - Internal
@@ -61,7 +57,8 @@ private extension ReviewsViewModel {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
             state.items += reviews.items.map(makeReviewItem)
-            state.totalCount = state.items.count
+            state.totalCount = reviews.count
+            
             state.offset += state.limit
             state.shouldLoad = state.offset < reviews.count
             if !state.shouldLoad {
