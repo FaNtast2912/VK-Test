@@ -31,8 +31,9 @@
 		5803DCCA2D6F0CF6000D6649 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */; };
 		5803DCCD2D6F750E000D6649 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCCC2D6F7500000D6649 /* LoadingIndicatorView.swift */; };
 		5803DCCF2D6F7D71000D6649 /* ImageCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCCE2D6F7D65000D6649 /* ImageCashe.swift */; };
-		5803DCD12D6F7D97000D6649 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */; };
 		5825F9382D70404100724435 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825F9372D70403D00724435 /* Constants.swift */; };
+		5825F93B2D70978800724435 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825F93A2D70978200724435 /* ImageProvider.swift */; };
+		5825F93D2D7099FC00724435 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825F93C2D7099F800724435 /* PhotoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,8 +62,9 @@
 		5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		5803DCCC2D6F7500000D6649 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		5803DCCE2D6F7D65000D6649 /* ImageCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCashe.swift; sourceTree = "<group>"; };
-		5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		5825F9372D70403D00724435 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5825F93A2D70978200724435 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
+		5825F93C2D7099F800724435 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		216668752D48F39E009AAA76 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5825F93C2D7099F800724435 /* PhotoCell.swift */,
 				21B82E252D47B0640085DAA2 /* ReviewCell.swift */,
 			);
 			path = Cells;
@@ -120,7 +123,6 @@
 		21B82E222D47B0640085DAA2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */,
 				5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */,
 				21B8416E2D47C4C60085DAA2 /* String+Ext.swift */,
 				216668702D48E4B2009AAA76 /* NSAttributedString+Ext.swift */,
@@ -149,6 +151,7 @@
 		21B82E2C2D47B0640085DAA2 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				5825F9392D70977900724435 /* Services */,
 				5803DCC62D6DE435000D6649 /* Helpers */,
 				21B82E2B2D47B0640085DAA2 /* AppDelegate.swift */,
 				21B82E2A2D47B0640085DAA2 /* Screens */,
@@ -211,6 +214,14 @@
 				5803DCC72D6DE476000D6649 /* SnakeCaseJSONDecoder.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5825F9392D70977900724435 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5825F93A2D70978200724435 /* ImageProvider.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,10 +298,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				21B82E392D47B1320085DAA2 /* Review.swift in Sources */,
+				5825F93D2D7099FC00724435 /* PhotoCell.swift in Sources */,
 				21B8416D2D47C0E20085DAA2 /* ReviewsViewModelState.swift in Sources */,
 				21B82E2E2D47B0640085DAA2 /* ReviewCell.swift in Sources */,
 				21ED1F622D69CBCD0012D6F6 /* RootView.swift in Sources */,
-				5803DCD12D6F7D97000D6649 /* UIImage+Ext.swift in Sources */,
 				21667B802D4A25B2009AAA76 /* RatingRenderer.swift in Sources */,
 				216668712D48E4B2009AAA76 /* NSAttributedString+Ext.swift in Sources */,
 				5803DCC82D6DE478000D6649 /* SnakeCaseJSONDecoder.swift in Sources */,
@@ -301,6 +312,7 @@
 				21B82E302D47B0640085DAA2 /* ReviewsViewController.swift in Sources */,
 				2166A0F42D4A5B25009AAA76 /* ReviewsView.swift in Sources */,
 				216668732D48E89A009AAA76 /* Colors.swift in Sources */,
+				5825F93B2D70978800724435 /* ImageProvider.swift in Sources */,
 				21B841712D47C5F00085DAA2 /* TableCellConfig.swift in Sources */,
 				5803DCCA2D6F0CF6000D6649 /* Int+Ext.swift in Sources */,
 				21ED1F652D69D0340012D6F6 /* ReviewsScreenFactory.swift in Sources */,

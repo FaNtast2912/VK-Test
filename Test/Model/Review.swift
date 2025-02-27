@@ -17,5 +17,7 @@ struct Review: Decodable {
     }
     /// Аватар пользователя
     let avatar: String
+    /// Массив URL фотографий в отзыве
+        let photos: [String]?
     
 }

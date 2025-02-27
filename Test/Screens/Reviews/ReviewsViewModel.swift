@@ -43,7 +43,6 @@ extension ReviewsViewModel {
             guard let self = self else { return }
             self.reviewsProvider.getReviews(offset: self.state.offset) { result in
                 DispatchQueue.main.async {
-                    // Сбрасываем флаг загрузки перед обработкой результата
                     self.state.isLoading = false
                     self.gotReviews(result)
                 }
@@ -114,6 +113,7 @@ private extension ReviewsViewModel {
         let ratingImage = ratingRenderer.ratingImage(review.rating)
         let avatarImage = UIImage(named: Constants.avatarPlaceholder.value)
         let avatarURL = review.avatar
+        let photoURLs = review.photos
         
         
         let item = ReviewItem(
@@ -124,6 +124,7 @@ private extension ReviewsViewModel {
             ratingImage: ratingImage,
             avatarImage: avatarImage,
             avatarURL: avatarURL,
+            photoURLs: photoURLs,
             onTapShowMore: { [weak self] id in
                 self?.showMoreReview(with: id)
             }

@@ -7,7 +7,11 @@
             "rating": 5,
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад",
-            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E="
+            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+            ]
         },
         {
             "first_name": "Екатерина",
@@ -15,7 +19,10 @@
             "rating": 3,
             "text": "Скользские ужасно.",
             "created": "12 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA="
+            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA=",
+            "photos": [
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Евгения",
@@ -23,7 +30,8 @@
             "rating": 4,
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI="
+            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI=",
+            "photos": []
         },
         {
             "first_name": "Илья",
@@ -31,7 +39,11 @@
             "rating": 2,
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад",
-            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI="
+            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Никита",
@@ -39,7 +51,12 @@
             "rating": 5,
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что",
-            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs="
+            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Олег",
@@ -47,7 +64,11 @@
             "rating": 1,
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc="
+            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Николай",
@@ -55,7 +76,8 @@
             "rating": 2,
             "text": "",
             "created": "вчера в 12:39",
-            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk="
+            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk=",
+            "photos": []
         },
         
         
@@ -65,7 +87,11 @@
             "rating": 5,
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад",
-            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E="
+            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Екатерина",
@@ -73,7 +99,10 @@
             "rating": 3,
             "text": "Скользские ужасно.",
             "created": "12 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA="
+            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA=",
+            "photos": [
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Евгения",
@@ -81,7 +110,8 @@
             "rating": 4,
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI="
+            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI=",
+            "photos": []
         },
         {
             "first_name": "Илья",
@@ -89,7 +119,11 @@
             "rating": 2,
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад",
-            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI="
+            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Никита",
@@ -97,7 +131,12 @@
             "rating": 5,
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что",
-            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs="
+            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Олег",
@@ -105,7 +144,11 @@
             "rating": 1,
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc="
+            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Николай",
@@ -113,7 +156,8 @@
             "rating": 2,
             "text": "",
             "created": "вчера в 12:39",
-            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk="
+            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk=",
+            "photos": []
         },
         
         
@@ -123,7 +167,11 @@
             "rating": 5,
             "text": "Кроссовки хорошие. Удобные. Как по мне сшиты.",
             "created": "1 час назад",
-            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E="
+            "avatar": "https://media.istockphoto.com/id/1364917551/photo/handsome-doctor-smiling-and-standing-on-white-background.jpg?s=1024x1024&w=is&k=20&c=5xNr_EE-TjE2MudTVoSX8ikX-BnfiksrIBYUouLcs2E=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Екатерина",
@@ -131,7 +179,10 @@
             "rating": 3,
             "text": "Скользские ужасно.",
             "created": "12 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA="
+            "avatar": "https://media.istockphoto.com/id/1346711310/photo/portrait-of-smiling-female-doctor-wearing-uniform-standing.jpg?s=1024x1024&w=is&k=20&c=Kir6D3kfw4XzIbarncN3AAJNwYOS8LYS2mlNGHv3tbA=",
+            "photos": [
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Евгения",
@@ -139,7 +190,8 @@
             "rating": 4,
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI="
+            "avatar": "https://media.istockphoto.com/id/1323303738/photo/medical-doctor-indoors-portraits.jpg?s=1024x1024&w=is&k=20&c=Geuc9vlwj-eHaOiyv6a5xaptQ9jM58ADjYwapPziFUI=",
+            "photos": []
         },
         {
             "first_name": "Илья",
@@ -147,7 +199,11 @@
             "rating": 2,
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад",
-            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI="
+            "avatar": "https://media.istockphoto.com/id/1342708859/photo/portrait-of-a-male-doctor.jpg?s=1024x1024&w=is&k=20&c=bkXwg78z_kxDfKGoFqYHavpvWNE0qYfB6kaqwLt4lsI=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Никита",
@@ -155,7 +211,12 @@
             "rating": 5,
             "text": "Отлично выглядят, хоть и скользковатые...",
             "created": "только что",
-            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs="
+            "avatar": "https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=1024x1024&w=is&k=20&c=HwRi4NnrK9aKEC27BkXnJJfuggGABNmqnnmXL7D9aBs=",
+            "photos": [
+                "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/1070360/pexels-photo-1070360.jpeg"
+            ]
         },
         {
             "first_name": "Олег",
@@ -163,7 +224,11 @@
             "rating": 1,
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад",
-            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc="
+            "avatar": "https://media.istockphoto.com/id/1305333546/photo/smiling-professional-female-doctor-taking-notes-looking-at-laptop-screen.jpg?s=1024x1024&w=is&k=20&c=q7XTKaHlpXVC7N6RWIM8GH1SfN4EgojOcsf1bPX0TNc=",
+            "photos": [
+                "https://images.pexels.com/photos/2421374/pexels-photo-2421374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                "https://images.pexels.com/photos/2529157/pexels-photo-2529157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            ]
         },
         {
             "first_name": "Николай",
@@ -171,19 +236,8 @@
             "rating": 2,
             "text": "",
             "created": "вчера в 12:39",
-            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk="
+            "avatar": "https://media.istockphoto.com/id/1292777576/photo/doctor-clicking-on-a-laptop-before-her.jpg?s=1024x1024&w=is&k=20&c=gaIXOmSFv4YDK6UCyK_5m1OQvxhhkvpOzn46ovO2ALk=",
+            "photos": []
         },
     ]
 }
-
-
-
-
-
-
-
-
-
-
-
-

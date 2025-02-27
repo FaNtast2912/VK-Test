@@ -22,6 +22,8 @@ struct ReviewCellConfig {
     let avatarImage: UIImage?
     /// Ссылка на аватар пользователя
     let avatarURL: String?
+    /// Массив URL фотографий
+    let photoURLs: [String]?
     /// Замыкание, вызываемое при нажатии на кнопку "Показать полностью...".
     let onTapShowMore: ((UUID) -> Void)?
     
@@ -56,10 +58,11 @@ extension ReviewCellConfig: TableCellConfig {
         cell.ratingImageView.image = ratingImage
         cell.avatarImageView.image = UIImage(named: Constants.avatarPlaceholder.value)
         if let avatarURL, let url = URL(string: avatarURL) {
-            UIImage.load(from: url) { image in
+            ImageProvider.shared.loadImage(from: url) { image in
                 cell.avatarImageView.image = image ?? UIImage(named: Constants.avatarPlaceholder.value)
             }
         }
+        cell.setupPhotosCollectionView(with: photoURLs)
         cell.reviewTextLabel.attributedText = reviewText
         cell.reviewTextLabel.numberOfLines = maxLines
         cell.createdLabel.attributedText = created
@@ -96,6 +99,10 @@ final class ReviewCell: UITableViewCell {
     fileprivate let reviewTextLabel = UILabel()
     fileprivate let createdLabel = UILabel()
     fileprivate let showMoreButton = UIButton()
+    fileprivate let photosCollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: UICollectionViewFlowLayout()
+    )
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -115,6 +122,7 @@ final class ReviewCell: UITableViewCell {
         reviewTextLabel.frame = layout.reviewTextLabelFrame
         createdLabel.frame = layout.createdLabelFrame
         showMoreButton.frame = layout.showMoreButtonFrame
+        photosCollectionView.frame = layout.photosCollectionViewFrame
     }
     
     @objc func showMoreTapped() {
@@ -131,6 +139,16 @@ final class ReviewCell: UITableViewCell {
         ratingImageView.image = nil
         reviewTextLabel.attributedText = nil
         createdLabel.attributedText = nil
+        photosCollectionView.isHidden = true
+    }
+    // Метод для настройки коллекции фотографий
+    func setupPhotosCollectionView(with photoURLs: [String]?) {
+        if let urls = photoURLs, !urls.isEmpty {
+            photosCollectionView.isHidden = false
+            photosCollectionView.reloadData()
+        } else {
+            photosCollectionView.isHidden = true
+        }
     }
 }
 
@@ -145,6 +163,7 @@ private extension ReviewCell {
         setupReviewTextLabel()
         setupCreatedLabel()
         setupShowMoreButton()
+        setupPhotosCollectionView()
     }
     
     func setupAvatarImageView() {
@@ -179,6 +198,23 @@ private extension ReviewCell {
         showMoreButton.addTarget(self, action: #selector(showMoreTapped), for: .touchUpInside)
     }
     
+    func setupPhotosCollectionView() {
+        contentView.addSubview(photosCollectionView)
+        
+        guard let layout = photosCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50.0, height: 70.0)
+        layout.minimumInteritemSpacing = 8.0
+        layout.minimumLineSpacing = 8.0
+        
+        photosCollectionView.backgroundColor = .clear
+        photosCollectionView.showsHorizontalScrollIndicator = false
+        photosCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
+        photosCollectionView.dataSource = self
+        photosCollectionView.delegate = self
+        photosCollectionView.isHidden = true
+    }
+    
 }
 
 // MARK: - Layout
@@ -204,6 +240,7 @@ private final class ReviewCellLayout {
     private(set) var reviewTextLabelFrame = CGRect.zero
     private(set) var showMoreButtonFrame = CGRect.zero
     private(set) var createdLabelFrame = CGRect.zero
+    private(set) var photosCollectionViewFrame = CGRect.zero
     
     // MARK: - Отступы
     
@@ -254,7 +291,20 @@ private final class ReviewCellLayout {
             origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
             size: config.ratingImage.size
         )
-        maxY = ratingImageViewFrame.maxY + ratingToTextSpacing
+        maxY = ratingImageViewFrame.maxY + ratingToPhotosSpacing
+        
+        // Фрейм для коллекции фотографий
+        if let photoURLs = config.photoURLs, !photoURLs.isEmpty {
+            let height = Self.photoSize.height
+            photosCollectionViewFrame = CGRect(
+                origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
+                size: CGSize(width: width, height: height)
+            )
+            maxY = photosCollectionViewFrame.maxY + photosToTextSpacing
+        } else {
+            photosCollectionViewFrame = .zero
+            maxY = ratingImageViewFrame.maxY + ratingToTextSpacing
+        }
         
         // Фрейм для текста одзыва
         if !config.reviewText.isEmpty() {
@@ -264,10 +314,12 @@ private final class ReviewCellLayout {
             let actualTextHeight = config.reviewText.boundingRect(width: width).size.height
             // Показываем кнопку "Показать полностью...", если текст не помещается
             showShowMoreButton = config.maxLines != 0 && actualTextHeight > currentTextHeight
+            // Ширина текста
+            let actualTextWidth = width - avatarImageViewFrame.width - avatarToUsernameSpacing
             
             reviewTextLabelFrame = CGRect(
-                origin: CGPoint(x: ratingImageViewFrame.minX, y: maxY),
-                size: config.reviewText.boundingRect(width: width - avatarImageViewFrame.width - avatarToUsernameSpacing, height: currentTextHeight).size
+                origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
+                size: config.reviewText.boundingRect(width: actualTextWidth, height: currentTextHeight).size
             )
             maxY = reviewTextLabelFrame.maxY + reviewTextToCreatedSpacing
         }
@@ -291,6 +343,31 @@ private final class ReviewCellLayout {
         
         return createdLabelFrame.maxY + insets.bottom
     }
+    
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension ReviewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return config?.photoURLs?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        
+        if let photoURL = config?.photoURLs?[indexPath.item], let url = URL(string: photoURL) {
+            cell.loadImage(from: url)
+        }
+        
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ReviewCell: UICollectionViewDelegate {
+    //TO DO сделать обработку нажатия
     
 }
 
