@@ -54,7 +54,7 @@ extension ReviewCellConfig: TableCellConfig {
         guard let cell = cell as? ReviewCell else { return }
         cell.reviewerFullNameLabel.attributedText = fullName
         cell.ratingImageView.image = ratingImage
-        cell.avatarImageView.image = avatarImage
+        cell.avatarImageView.image = UIImage(named: Constants.avatarPlaceholder.value)
         if let avatarURL, let url = URL(string: avatarURL) {
             UIImage.load(from: url) { image in
                 cell.avatarImageView.image = image ?? UIImage(named: Constants.avatarPlaceholder.value)

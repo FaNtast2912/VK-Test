@@ -3,7 +3,7 @@ import UIKit
 final class ReviewsViewController: UIViewController {
     
     private lazy var reviewsView = makeReviewsView()
-    private lazy var loadingIndicator = LoadingIndicatorView()
+    private lazy var loadingIndicator = makeLoadingIndicator()
     private let viewModel: ReviewsViewModel
     
     init(viewModel: ReviewsViewModel) {
@@ -22,12 +22,14 @@ final class ReviewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         setupViewModel()
+        loadingIndicator.startAnimating()
         viewModel.getReviews()
     }
 }
 
-// MARK: - Private
+// MARK: - Extension
 
 private extension ReviewsViewController {
     
@@ -38,9 +40,42 @@ private extension ReviewsViewController {
         return reviewsView
     }
     
+    func makeLoadingIndicator() -> LoadingIndicatorView {
+        let loadingIndicator = LoadingIndicatorView()
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return loadingIndicator
+    }
+    
+    func setupUI() {
+        setupLoadingIndicator()
+    }
+    
+    func setupLoadingIndicator() {
+        
+        view.addSubview(loadingIndicator)
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingIndicator.widthAnchor.constraint(equalToConstant: 80),
+            loadingIndicator.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        view.bringSubviewToFront(loadingIndicator)
+        
+        loadingIndicator.isHidden = true
+    }
+    
     func setupViewModel() {
         viewModel.onStateChange = { [weak self] state in
-            guard let self else { return }
+            guard let self = self else { return }
+            
+            if state.isLoading {
+                self.loadingIndicator.startAnimating()
+            } else {
+                self.loadingIndicator.stopAnimating()
+            }
+            
             self.reviewsView.tableView.reloadData()
         }
     }

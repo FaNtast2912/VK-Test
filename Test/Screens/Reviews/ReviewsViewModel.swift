@@ -33,12 +33,18 @@ extension ReviewsViewModel {
     
     /// Метод получения отзывов.
     func getReviews() {
-        guard state.shouldLoad else { return }
+        guard state.shouldLoad, !state.isLoading else { return }
+        
+        state.isLoading = true
+        onStateChange?(state)
+        
         state.shouldLoad = false
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             self.reviewsProvider.getReviews(offset: self.state.offset) { result in
                 DispatchQueue.main.async {
+                    // Сбрасываем флаг загрузки перед обработкой результата
+                    self.state.isLoading = false
                     self.gotReviews(result)
                 }
             }
