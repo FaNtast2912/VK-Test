@@ -30,6 +30,9 @@
 		5803DCC82D6DE478000D6649 /* SnakeCaseJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCC72D6DE476000D6649 /* SnakeCaseJSONDecoder.swift */; };
 		5803DCCA2D6F0CF6000D6649 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */; };
 		5803DCCD2D6F750E000D6649 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCCC2D6F7500000D6649 /* LoadingIndicatorView.swift */; };
+		5803DCCF2D6F7D71000D6649 /* ImageCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCCE2D6F7D65000D6649 /* ImageCashe.swift */; };
+		5803DCD12D6F7D97000D6649 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */; };
+		5825F9382D70404100724435 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5825F9372D70403D00724435 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,9 @@
 		5803DCC72D6DE476000D6649 /* SnakeCaseJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCaseJSONDecoder.swift; sourceTree = "<group>"; };
 		5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		5803DCCC2D6F7500000D6649 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
+		5803DCCE2D6F7D65000D6649 /* ImageCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCashe.swift; sourceTree = "<group>"; };
+		5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		5825F9372D70403D00724435 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 		21B82E222D47B0640085DAA2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5803DCD02D6F7D87000D6649 /* UIImage+Ext.swift */,
 				5803DCC92D6F0CEE000D6649 /* Int+Ext.swift */,
 				21B8416E2D47C4C60085DAA2 /* String+Ext.swift */,
 				216668702D48E4B2009AAA76 /* NSAttributedString+Ext.swift */,
@@ -199,6 +206,8 @@
 		5803DCC62D6DE435000D6649 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				5825F9372D70403D00724435 /* Constants.swift */,
+				5803DCCE2D6F7D65000D6649 /* ImageCashe.swift */,
 				5803DCC72D6DE476000D6649 /* SnakeCaseJSONDecoder.swift */,
 			);
 			path = Helpers;
@@ -281,6 +290,7 @@
 				21B8416D2D47C0E20085DAA2 /* ReviewsViewModelState.swift in Sources */,
 				21B82E2E2D47B0640085DAA2 /* ReviewCell.swift in Sources */,
 				21ED1F622D69CBCD0012D6F6 /* RootView.swift in Sources */,
+				5803DCD12D6F7D97000D6649 /* UIImage+Ext.swift in Sources */,
 				21667B802D4A25B2009AAA76 /* RatingRenderer.swift in Sources */,
 				216668712D48E4B2009AAA76 /* NSAttributedString+Ext.swift in Sources */,
 				5803DCC82D6DE478000D6649 /* SnakeCaseJSONDecoder.swift in Sources */,
@@ -297,7 +307,9 @@
 				2166686F2D48E23F009AAA76 /* Fonts.swift in Sources */,
 				5803DCCD2D6F750E000D6649 /* LoadingIndicatorView.swift in Sources */,
 				21B82E312D47B0640085DAA2 /* AppDelegate.swift in Sources */,
+				5803DCCF2D6F7D71000D6649 /* ImageCashe.swift in Sources */,
 				21B8416F2D47C4C60085DAA2 /* String+Ext.swift in Sources */,
+				5825F9382D70404100724435 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

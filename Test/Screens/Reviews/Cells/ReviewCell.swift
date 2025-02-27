@@ -20,6 +20,8 @@ struct ReviewCellConfig {
     let ratingImage: UIImage
     /// Изображение аватара пользователя
     let avatarImage: UIImage?
+    /// Ссылка на аватар пользователя
+    let avatarURL: String?
     /// Замыкание, вызываемое при нажатии на кнопку "Показать полностью...".
     let onTapShowMore: ((UUID) -> Void)?
     
@@ -53,6 +55,11 @@ extension ReviewCellConfig: TableCellConfig {
         cell.reviewerFullNameLabel.attributedText = fullName
         cell.ratingImageView.image = ratingImage
         cell.avatarImageView.image = avatarImage
+        if let avatarURL, let url = URL(string: avatarURL) {
+            UIImage.load(from: url) { image in
+                cell.avatarImageView.image = image ?? UIImage(named: Constants.avatarPlaceholder.value)
+            }
+        }
         cell.reviewTextLabel.attributedText = reviewText
         cell.reviewTextLabel.numberOfLines = maxLines
         cell.createdLabel.attributedText = created
@@ -116,7 +123,7 @@ final class ReviewCell: UITableViewCell {
     }
     
     // MARK: - Подготовка к переиспользованию ячейки
-     override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
         config = nil
         avatarImageView.image = nil

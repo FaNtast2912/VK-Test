@@ -57,7 +57,7 @@ private extension ReviewsViewModel {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
             state.items += reviews.items.map(makeReviewItem)
-            state.totalCount = reviews.count
+            state.totalCount = state.items.count
             
             state.offset += state.limit
             state.shouldLoad = state.offset < reviews.count
@@ -86,6 +86,8 @@ private extension ReviewsViewModel {
 
 // MARK: - Items
 
+
+
 private extension ReviewsViewModel {
     
     typealias ReviewItem = ReviewCellConfig
@@ -95,7 +97,9 @@ private extension ReviewsViewModel {
         let reviewText = review.text.attributed(font: .text)
         let created = review.created.attributed(font: .created, color: .created)
         let ratingImage = ratingRenderer.ratingImage(review.rating)
-        let avatarImage = UIImage(named: "l5w5aIHioYc")
+        let avatarImage = UIImage(named: Constants.avatarPlaceholder.value)
+        let avatarURL = review.avatar
+        
         
         let item = ReviewItem(
             fullName: fullName,
@@ -104,6 +108,7 @@ private extension ReviewsViewModel {
             created: created,
             ratingImage: ratingImage,
             avatarImage: avatarImage,
+            avatarURL: avatarURL,
             onTapShowMore: { [weak self] id in
                 self?.showMoreReview(with: id)
             }
