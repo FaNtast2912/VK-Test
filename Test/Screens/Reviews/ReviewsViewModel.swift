@@ -58,15 +58,23 @@ extension ReviewsViewModel {
 private extension ReviewsViewModel {
     
     /// Метод обработки получения отзывов.
+    /// TO DO сейчас я обрабатываю ситуацию когда ко мне приходит больше отзывов чем мне прислал сервер в allReviewsCount
     func gotReviews(_ result: ReviewsProvider.GetReviewsResult) {
         do {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
-            state.items += reviews.items.map(makeReviewItem)
-            state.totalCount = state.items.count
+            let allReviewsCount = reviews.count
+            let remainingCapacity = allReviewsCount - state.totalCount
+            
+            if remainingCapacity > 0 {
+                let limitedReviews = Array(reviews.items.prefix(remainingCapacity))
+                state.items += limitedReviews.map(makeReviewItem)
+                state.totalCount = state.items.count
+            }
             
             state.offset += state.limit
-            state.shouldLoad = state.offset < reviews.count
+            state.shouldLoad = state.totalCount < allReviewsCount
+            
             if !state.shouldLoad {
                 state.items.append(CounterCellConfig(count: state.totalCount))
             }
@@ -75,6 +83,7 @@ private extension ReviewsViewModel {
         }
         onStateChange?(state)
     }
+
     
     /// Метод, вызываемый при нажатии на кнопку "Показать полностью...".
     /// Снимает ограничение на количество строк текста отзыва (раскрывает текст).
