@@ -203,7 +203,7 @@ private extension ReviewCell {
         
         guard let layout = photosCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50.0, height: 70.0)
+        layout.itemSize = CGSize(width: 55.0, height: 66.0)
         layout.minimumInteritemSpacing = 8.0
         layout.minimumLineSpacing = 8.0
         
