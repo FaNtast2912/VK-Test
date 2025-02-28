@@ -41,7 +41,12 @@ private extension ReviewsViewController {
     }
     
     func makeLoadingIndicator() -> LoadingIndicatorView {
-        let loadingIndicator = LoadingIndicatorView()
+        let loadingIndicator = LoadingIndicatorView(
+            dotSize: 10.0,
+            dotSpacing: 8.0,
+            dotColor: .systemBlue,
+            horizontalPadding: 8.0
+        )
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
         return loadingIndicator
     }
@@ -51,18 +56,14 @@ private extension ReviewsViewController {
     }
     
     func setupLoadingIndicator() {
-        
         view.addSubview(loadingIndicator)
         
         NSLayoutConstraint.activate([
             loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loadingIndicator.widthAnchor.constraint(equalToConstant: 80),
-            loadingIndicator.heightAnchor.constraint(equalToConstant: 30)
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
         view.bringSubviewToFront(loadingIndicator)
-        
         loadingIndicator.isHidden = true
     }
     
