@@ -6,10 +6,14 @@ final class ReviewsViewModel: NSObject {
     /// Замыкание, вызываемое при изменении `state`.
     var onStateChange: ((State) -> Void)?
     
+    /// Коллбек, который сообщает ReviewsViewController, какие ячейки вставлять.
+    var onItemsInserted: (([IndexPath]) -> Void)?
+    
     private var state: State
     private let reviewsProvider: ReviewsProvider
     private let ratingRenderer: RatingRenderer
     private let decoder: JSONDecoder
+    
     
     init(
         state: State = State(),
@@ -63,26 +67,65 @@ private extension ReviewsViewModel {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
             let allReviewsCount = reviews.count
+            
+            // Создаем копию текущих элементов для безопасного обновления
+            var updatedItems = state.items
+            
+            // Ограничиваем количество добавляемых отзывов
             let remainingCapacity = allReviewsCount - state.totalCount
+            
+            var indexPathsToInsert = [IndexPath]()
             
             if remainingCapacity > 0 {
                 let limitedReviews = Array(reviews.items.prefix(remainingCapacity))
-                state.items += limitedReviews.map(makeReviewItem)
-                state.totalCount = state.items.count
+                let newItems = limitedReviews.map(makeReviewItem)
+                
+                let startIndex = updatedItems.count
+                indexPathsToInsert = (startIndex..<(startIndex + newItems.count)).map { IndexPath(row: $0, section: 0) }
+                
+                updatedItems.append(contentsOf: newItems)
+                state.totalCount += newItems.count
             }
             
+            // Обновляем состояние для следующей загрузки
             state.offset += state.limit
             state.shouldLoad = state.totalCount < allReviewsCount
             
-            if !state.shouldLoad {
-                state.items.append(CounterCellConfig(count: state.totalCount))
+            // Добавляем ячейку счетчика только когда загрузили все отзывы и её ещё нет
+            if !state.shouldLoad && !updatedItems.contains(where: { $0 is CounterCellConfig }) {
+                let counterItem = CounterCellConfig(count: state.totalCount)
+                let indexPath = IndexPath(row: updatedItems.count, section: 0)
+                
+                updatedItems.append(counterItem)
+                indexPathsToInsert.append(indexPath)
+            }
+            
+            // Обновляем модель только после полной подготовки
+            let finalItems = updatedItems
+            
+            // Выполняем обновление UI в главном потоке
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                // Атомарно обновляем state
+                self.state.items = finalItems
+                self.state.isLoading = false  // Важно! Устанавливаем isLoading в false
+                
+                // Только после этого обновляем таблицу
+                if !indexPathsToInsert.isEmpty {
+                    self.onItemsInserted?(indexPathsToInsert)
+                }
+                
+                // Уведомляем об изменении состояния в любом случае
+                self.onStateChange?(self.state)
             }
         } catch {
             state.shouldLoad = true
+            state.isLoading = false  // Устанавливаем isLoading в false также при ошибке
+            onStateChange?(state)
         }
-        onStateChange?(state)
     }
-
+    
     
     /// Метод, вызываемый при нажатии на кнопку "Показать полностью...".
     /// Снимает ограничение на количество строк текста отзыва (раскрывает текст).

@@ -75,8 +75,14 @@ private extension ReviewsViewController {
             } else {
                 self.loadingIndicator.stopAnimating()
             }
+        }
+        
+        viewModel.onItemsInserted = { [weak self] indexPaths in
+            guard let self = self else { return }
             
-            self.reviewsView.tableView.reloadData()
+            self.reviewsView.tableView.performBatchUpdates({
+                self.reviewsView.tableView.insertRows(at: indexPaths, with: .automatic)
+            })
         }
     }
     
