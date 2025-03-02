@@ -1,6 +1,6 @@
 # VK Reviews App
 
-<img src="https://raw.githubusercontent.com/FaNtast2912/VK-Test/edit/main/Demo/Test_Demo.gif" alt="ImageFeed Demo" width="200">  
+<img src="https://raw.githubusercontent.com/FaNtast2912/VK-Test/main/Demo/Test_Demo.gif" alt="ImageFeed Demo" width="200">  
 *Демонстрация скролла ленты с отзывами.*   
 
 ## Описание проекта
