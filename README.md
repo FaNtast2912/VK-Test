@@ -1,5 +1,8 @@
 # VK Reviews App
 
+<img src="https://raw.githubusercontent.com/FaNtast2912/VK-Test/edit/main/Demo/Test_Demo.gif" alt="ImageFeed Demo" width="200">  
+*Демонстрация скролла ленты с отзывами.*   
+
 ## Описание проекта
 
 Это тестовое приложение для VK, предназначенное для отображения списка отзывов. В проекте использованы: UIKit, URLSession, архитектура MVVM, CALayer и верстка на фреймах. Основная цель приложения — демонстрация навыков тестирования производительности с помощью Instruments, структурирования кода, работы с UITableView и управления памятью.
