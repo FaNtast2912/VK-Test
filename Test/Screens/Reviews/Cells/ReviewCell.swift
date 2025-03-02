@@ -268,80 +268,149 @@ private final class ReviewCellLayout {
     
     /// Возвращает высоту ячейки с данной конфигурацией `config` и ограничением по ширине `maxWidth`.
     func height(config: Config, maxWidth: CGFloat) -> CGFloat {
-        let width = maxWidth - insets.left - insets.right
+        let contentWidth = maxWidth - insets.left - insets.right
+        var currentY = insets.top
         
-        var maxY = insets.top
-        var showShowMoreButton = false
+        // Расчет позиций элементов сверху вниз
+        layoutAvatarAndUserInfo(config: config, contentWidth: contentWidth, startY: &currentY)
+        layoutRating(config: config, startY: &currentY)
+        layoutPhotos(config: config, contentWidth: contentWidth, startY: &currentY)
+        layoutReviewText(config: config, contentWidth: contentWidth, startY: &currentY)
+        layoutShowMoreButton(config: config, startY: &currentY)
+        layoutCreatedDate(config: config, contentWidth: contentWidth, startY: &currentY)
         
-        // Фрейм для аватарки
+        // Возвращаем итоговую высоту с учетом нижнего отступа
+        return currentY + insets.bottom
+    }
+
+    // MARK: - Layout Components
+
+    /// Расположение аватара и информации о пользователе
+    private func layoutAvatarAndUserInfo(config: Config, contentWidth: CGFloat, startY: inout CGFloat) {
+        // Расчет фрейма для аватара
         avatarImageViewFrame = CGRect(
-            origin: CGPoint(x: insets.left, y: maxY),
+            origin: CGPoint(x: insets.left, y: startY),
             size: Self.avatarSize
         )
         
-        // Фрейм для полного имени пользователя (с учетом положения аватара)
-        fullNameLabelFrame = CGRect(
-            origin: CGPoint(x: avatarImageViewFrame.maxX + avatarToUsernameSpacing, y: maxY),
-            size: config.fullName.boundingRect(width: width - Self.avatarSize.width - avatarToUsernameSpacing).size
-        )
-        maxY = fullNameLabelFrame.maxY + usernameToRatingSpacing
+        // Доступная ширина для имени пользователя
+        let nameWidth = contentWidth - Self.avatarSize.width - avatarToUsernameSpacing
         
-        // Фрейм для рейтинга (звезды)
+        // Расчет фрейма для имени пользователя (справа от аватара)
+        let nameX = avatarImageViewFrame.maxX + avatarToUsernameSpacing
+        let nameSize = config.fullName.boundingRect(width: nameWidth).size
+        
+        fullNameLabelFrame = CGRect(
+            origin: CGPoint(x: nameX, y: startY),
+            size: nameSize
+        )
+        
+        // Обновляем Y-координату для следующего элемента
+        startY = fullNameLabelFrame.maxY + usernameToRatingSpacing
+    }
+
+    /// Расположение рейтинга (звезд)
+    private func layoutRating(config: Config, startY: inout CGFloat) {
         ratingImageViewFrame = CGRect(
-            origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
+            origin: CGPoint(x: fullNameLabelFrame.minX, y: startY),
             size: config.ratingImage.size
         )
-        maxY = ratingImageViewFrame.maxY + ratingToPhotosSpacing
         
-        // Фрейм для коллекции фотографий
+        // Обновляем Y-координату для следующего элемента
+        // Не увеличиваем startY, так как это будет сделано в методах layoutPhotos или layoutReviewText
+    }
+
+    /// Расположение фотографий, если они есть
+    private func layoutPhotos(config: Config, contentWidth: CGFloat, startY: inout CGFloat) {
         if let photoURLs = config.photoURLs, !photoURLs.isEmpty {
-            let height = Self.photoSize.height
+            // Добавляем отступ от рейтинга до фотографий
+            startY = ratingImageViewFrame.maxY + ratingToPhotosSpacing
+            
+            // Расчет фрейма для коллекции фотографий
+            let photoHeight = Self.photoSize.height
             photosCollectionViewFrame = CGRect(
-                origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
-                size: CGSize(width: width, height: height)
+                origin: CGPoint(x: fullNameLabelFrame.minX, y: startY),
+                size: CGSize(width: contentWidth, height: photoHeight)
             )
-            maxY = photosCollectionViewFrame.maxY + photosToTextSpacing
+            
+            // Обновляем Y-координату для следующего элемента
+            startY = photosCollectionViewFrame.maxY + photosToTextSpacing
         } else {
             photosCollectionViewFrame = .zero
-            maxY = ratingImageViewFrame.maxY + ratingToTextSpacing
+            
+            // Если фотографий нет, используем другой отступ от рейтинга до текста
+            startY = ratingImageViewFrame.maxY + ratingToTextSpacing
         }
-        
-        // Фрейм для текста одзыва
+    }
+
+    /// Расположение текста отзыва
+    private func layoutReviewText(config: Config, contentWidth: CGFloat, startY: inout CGFloat) {
         if !config.reviewText.isEmpty() {
-            // Высота текста с текущим ограничением по количеству строк
-            let currentTextHeight = (config.reviewText.font()?.lineHeight ?? 0) * CGFloat(config.maxLines)
-            // Максимально возможная высота текста, если бы ограничения не было
-            let actualTextHeight = config.reviewText.boundingRect(width: width).size.height
-            // Показываем кнопку "Показать полностью...", если текст не помещается
-            showShowMoreButton = config.maxLines != 0 && actualTextHeight > currentTextHeight
-            // Ширина текста
-            let actualTextWidth = width - avatarImageViewFrame.width - avatarToUsernameSpacing
+            // Правильный расчет ширины текста
+            let textWidth = contentWidth - avatarImageViewFrame.width - avatarToUsernameSpacing
+            
+            // Расчет высоты текста с учетом ограничения по количеству строк
+            let lineHeight = config.reviewText.font()?.lineHeight ?? 0
+            let maxAllowedHeight = config.maxLines != 0 ? lineHeight * CGFloat(config.maxLines) : .greatestFiniteMagnitude
+            
+            let textSize = config.reviewText.boundingRect(width: textWidth, height: maxAllowedHeight).size
             
             reviewTextLabelFrame = CGRect(
-                origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
-                size: config.reviewText.boundingRect(width: actualTextWidth, height: currentTextHeight).size
+                origin: CGPoint(x: fullNameLabelFrame.minX, y: startY),
+                size: textSize
             )
-            maxY = reviewTextLabelFrame.maxY + reviewTextToCreatedSpacing
+            
+            // Обновляем Y-координату для следующего элемента
+            startY = reviewTextLabelFrame.maxY + reviewTextToCreatedSpacing
+        } else {
+            reviewTextLabelFrame = .zero
         }
+    }
+
+    /// Расчет необходимости и расположения кнопки "Показать полностью..."
+    private func layoutShowMoreButton(config: Config, startY: inout CGFloat) {
+        // Проверяем, нужна ли кнопка "Показать полностью..."
+        let shouldShowButton = shouldShowMoreButton(config: config)
         
-        // Фрейм для кнопки показать больше
-        if showShowMoreButton {
+        if shouldShowButton {
             showMoreButtonFrame = CGRect(
-                origin: CGPoint(x: reviewTextLabelFrame.minX, y: maxY),
+                origin: CGPoint(x: reviewTextLabelFrame.minX, y: startY),
                 size: Self.showMoreButtonSize
             )
-            maxY = showMoreButtonFrame.maxY + showMoreToCreatedSpacing
+            
+            // Обновляем Y-координату для следующего элемента
+            startY = showMoreButtonFrame.maxY + showMoreToCreatedSpacing
         } else {
             showMoreButtonFrame = .zero
         }
+    }
+
+    /// Определяет, нужно ли показывать кнопку "Показать полностью..."
+    private func shouldShowMoreButton(config: Config) -> Bool {
+        if config.maxLines == 0 || config.reviewText.isEmpty() {
+            return false
+        }
         
-        // Фрейм для времени создания
+        // Высота текста с ограничением по количеству строк
+        let lineHeight = config.reviewText.font()?.lineHeight ?? 0
+        let currentTextHeight = lineHeight * CGFloat(config.maxLines)
+        
+        // Полная высота текста без ограничений
+        let actualTextHeight = config.reviewText.boundingRect(width: reviewTextLabelFrame.width).size.height
+        
+        // Показываем кнопку, только если текст не помещается в отведенное количество строк
+        return actualTextHeight > currentTextHeight
+    }
+
+    /// Расположение даты создания отзыва
+    private func layoutCreatedDate(config: Config, contentWidth: CGFloat, startY: inout CGFloat) {
         createdLabelFrame = CGRect(
-            origin: CGPoint(x: fullNameLabelFrame.minX, y: maxY),
-            size: config.created.boundingRect(width: width).size
+            origin: CGPoint(x: fullNameLabelFrame.minX, y: startY),
+            size: config.created.boundingRect(width: contentWidth).size
         )
         
-        return createdLabelFrame.maxY + insets.bottom
+        // Обновляем Y-координату для следующего элемента
+        startY = createdLabelFrame.maxY
     }
     
 }

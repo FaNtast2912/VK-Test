@@ -62,67 +62,102 @@ private extension ReviewsViewModel {
     
     /// Метод обработки получения отзывов.
     /// TO DO сейчас я обрабатываю ситуацию когда ко мне приходит больше отзывов чем мне прислал сервер в allReviewsCount
+    /// Метод обработки получения отзывов.
     func gotReviews(_ result: ReviewsProvider.GetReviewsResult) {
         do {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
-            let allReviewsCount = reviews.count
             
-            // Создаем копию текущих элементов для безопасного обновления
-            var updatedItems = state.items
-            
-            // Ограничиваем количество добавляемых отзывов
-            let remainingCapacity = allReviewsCount - state.totalCount
-            
-            var indexPathsToInsert = [IndexPath]()
-            
-            if remainingCapacity > 0 {
-                let limitedReviews = Array(reviews.items.prefix(remainingCapacity))
-                let newItems = limitedReviews.map(makeReviewItem)
-                
-                let startIndex = updatedItems.count
-                indexPathsToInsert = (startIndex..<(startIndex + newItems.count)).map { IndexPath(row: $0, section: 0) }
-                
-                updatedItems.append(contentsOf: newItems)
-                state.totalCount += newItems.count
-            }
-            
-            // Обновляем состояние для следующей загрузки
-            state.offset += state.limit
-            state.shouldLoad = state.totalCount < allReviewsCount
-            
-            // Добавляем ячейку счетчика только когда загрузили все отзывы и её ещё нет
-            if !state.shouldLoad && !updatedItems.contains(where: { $0 is CounterCellConfig }) {
-                let counterItem = CounterCellConfig(count: state.totalCount)
-                let indexPath = IndexPath(row: updatedItems.count, section: 0)
-                
-                updatedItems.append(counterItem)
-                indexPathsToInsert.append(indexPath)
-            }
-            
-            // Обновляем модель только после полной подготовки
-            let finalItems = updatedItems
-            
-            // Выполняем обновление UI в главном потоке
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                // Атомарно обновляем state
-                self.state.items = finalItems
-                self.state.isLoading = false  // Важно! Устанавливаем isLoading в false
-                
-                // Только после этого обновляем таблицу
-                if !indexPathsToInsert.isEmpty {
-                    self.onItemsInserted?(indexPathsToInsert)
-                }
-                
-                // Уведомляем об изменении состояния в любом случае
-                self.onStateChange?(self.state)
-            }
+            processReviews(reviews)
         } catch {
-            state.shouldLoad = true
-            state.isLoading = false  // Устанавливаем isLoading в false также при ошибке
-            onStateChange?(state)
+            handleError()
+        }
+    }
+
+    /// Обработка успешно полученных отзывов
+    private func processReviews(_ reviews: Reviews) {
+        let allReviewsCount = reviews.count
+        
+        // Добавляем новые отзывы, если они еще есть
+        let indexPathsToInsert = addNewReviews(reviews: reviews, totalAvailable: allReviewsCount)
+        
+        // Обновляем состояние для следующей загрузки
+        updateLoadingState(totalAvailable: allReviewsCount)
+        
+        // Обновляем UI
+        updateUI(with: indexPathsToInsert)
+    }
+
+    /// Добавление новых отзывов в модель данных
+    private func addNewReviews(reviews: Reviews, totalAvailable: Int) -> [IndexPath] {
+        var updatedItems = state.items
+        var indexPathsToInsert = [IndexPath]()
+        
+        // Определяем, сколько еще отзывов мы можем добавить
+        let remainingCapacity = totalAvailable - state.totalCount
+        
+        if remainingCapacity > 0 {
+            // Добавляем только столько отзывов, сколько осталось до общего числа
+            let limitedReviews = Array(reviews.items.prefix(remainingCapacity))
+            let newItems = limitedReviews.map(makeReviewItem)
+            
+            // Создаем indexPaths для новых элементов
+            let startIndex = updatedItems.count
+            indexPathsToInsert = (startIndex..<(startIndex + newItems.count))
+                .map { IndexPath(row: $0, section: 0) }
+            
+            // Добавляем новые отзывы в общий список
+            updatedItems.append(contentsOf: newItems)
+            state.totalCount += newItems.count
+        }
+        
+        // Добавляем ячейку счетчика, если загрузили все отзывы и её ещё нет
+        if shouldAddCounterCell(totalAvailable: totalAvailable) {
+            let counterItem = CounterCellConfig(count: state.totalCount)
+            let indexPath = IndexPath(row: updatedItems.count, section: 0)
+            
+            updatedItems.append(counterItem)
+            indexPathsToInsert.append(indexPath)
+        }
+        
+        // Сохраняем обновленный список элементов
+        state.items = updatedItems
+        
+        return indexPathsToInsert
+    }
+
+    /// Проверка необходимости добавления ячейки счетчика
+    private func shouldAddCounterCell(totalAvailable: Int) -> Bool {
+        return state.totalCount >= totalAvailable &&
+               !state.items.contains(where: { $0 is CounterCellConfig })
+    }
+
+    /// Обновление состояния для следующей загрузки
+    private func updateLoadingState(totalAvailable: Int) {
+        state.offset += state.limit
+        state.shouldLoad = state.totalCount < totalAvailable
+        state.isLoading = false
+    }
+
+    /// Обработка ошибки при получении отзывов
+    private func handleError() {
+        state.shouldLoad = true
+        state.isLoading = false
+        onStateChange?(state)
+    }
+
+    /// Обновление UI после получения новых отзывов
+    private func updateUI(with indexPathsToInsert: [IndexPath]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            // Уведомляем таблицу о новых ячейках, если они есть
+            if !indexPathsToInsert.isEmpty {
+                self.onItemsInserted?(indexPathsToInsert)
+            }
+            
+            // Уведомляем об изменении состояния в любом случае
+            self.onStateChange?(self.state)
         }
     }
     
